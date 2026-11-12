@@ -23,7 +23,7 @@ A toy computer in plain code ([`machine.js`](machine.js), no DOM, no network): f
 
 ## A real run
 
-Signed in with my own Pollen on the live code, six models that are free for every visitor, all seven programs, teacher forcing: 690 requests. By the models' listed prices that is about a hundredth of a Pollen for the six models together.
+Signed in with my own Pollen on the live code, six models that are free for every visitor, all seven programs, teacher forcing: 690 requests. The page's own estimate for that run is about 0.12 Pollen for the six models together (a rough figure from the listed prices).
 
 | Model | Steps survived | Programs perfect | Right per step | Where it first slipped |
 |---|---|---|---|---|
@@ -64,7 +64,7 @@ What the runs show:
 - Browsers other than desktop Chrome and phones.
 - Models other than the six defaults, and any paid model. Picking a paid-only model on free Pollen is meant to skip that model with a notice while the others carry on (a 402 on a model the list marks `paid_only`); that path has no unit test and was not run against a free-only account.
 - Larger machines, other prompts, other temperatures, and runs repeated enough to put an error bar on a score.
-- Cost: about 3,000 requests were made over all runs and probes, a few hundredths of a Pollen by the models' listed prices; the balance was not read before and after, so the figure is an estimate.
+- Cost: about 3,000 requests were made over all runs and probes, which is several full runs at the page's estimate (about 0.12 Pollen each); the balance was not read before and after, so there is no measured total. The key used for the runs answered 401 at the end, so no further runs were possible.
 - `mistralai/mistral-large-3` was tried as a default and dropped: a request with a `seed` hung past 100 seconds in one of three tries.
 
 ## How it pays

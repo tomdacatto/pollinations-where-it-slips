@@ -1,5 +1,5 @@
 // What a visitor's key may spend and for how long. Pollen is per visitor.
-// All six programs on six cheap models, one step per request, cost a few hundredths of a Pollen.
+// All seven programs on the six default models, one step per request, cost about 0.12 Pollen by the page's own estimate.
 export const BUDGET = 0.5;
 export const EXPIRY_DAYS = 1;
 
