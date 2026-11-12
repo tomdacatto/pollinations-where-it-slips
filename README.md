@@ -60,7 +60,7 @@ What the runs show:
 
 ## Not verified
 
-- The sign-in redirect on the live address: the key was put into the page's session storage for the runs, not obtained through the sign-in on `tomdacatto.github.io`. `APP_KEY` in `config.js` is empty (no App Key was created), so the consent screen does not name the app yet.
+- The sign-in redirect on the live address: the key was put into the page's session storage for the runs, not obtained through the sign-in on `tomdacatto.github.io`. The sign-in sends the app's publishable App Key (`APP_KEY` in `config.js`, earnings off) as `client_id`; a consent screen naming this app was not checked.
 - Browsers other than desktop Chrome and phones.
 - Models other than the six defaults, and any paid model. Picking a paid-only model on free Pollen is meant to skip that model with a notice while the others carry on (a 402 on a model the list marks `paid_only`); that path has no unit test and was not run against a free-only account.
 - Larger machines, other prompts, other temperatures, and runs repeated enough to put an error bar on a score.
