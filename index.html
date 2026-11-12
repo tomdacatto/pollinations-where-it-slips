@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Where It Slips: a model plays a computer, a real one checks it</title>
+    <meta name="description" content="A tiny real computer written in code is the ground truth. Each Pollinations model plays the machine one step at a time; the app diffs every step and shows where it first slips. Paid with your own Pollen.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="top">
+        <a class="brand" href="./">Where It Slips</a>
+        <div class="session">
+            <span id="whoami" hidden>Signed in with your Pollen</span>
+            <button id="sign-in" class="button primary" type="button">Sign in with Pollen</button>
+            <button id="sign-out" class="button" type="button" hidden>Sign out</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="intro">
+            <h1>A model plays a computer. A real one checks it.</h1>
+            <p>
+                <a href="https://simedw.com/2026/10/21/world-model-terminal/">WorldTUI</a> lets a small model imitate a terminal, and
+                <a href="https://github.com/dbreunig/nesformer">nesformer</a> compiles a CPU into a model's weights.
+                An imitation that looks right is easy to make and hard to trust, so this app keeps a second, real machine next to the model.
+                The machine is a few lines of plain code: four registers, eight memory cells, a zero flag and ten instructions.
+                Each model is handed the full state and one instruction and must answer with the next state. The real machine runs the same step, and every cell of the answer is compared.
+                You see <em>where each model first slips</em>, and how.
+            </p>
+        </section>
+
+        <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+
+        <section class="card">
+            <h2>The machine</h2>
+            <p class="fine">Values are 0 to 255 and wrap. <code>ADD</code>, <code>SUB</code>, <code>INC</code> and <code>DEC</code> set Z to 1 when the result is 0; nothing else changes Z. <code>JNZ t</code> jumps to <code>t</code> when Z is 0. <code>HALT</code> changes nothing.</p>
+            <ul id="rules" class="rules"></ul>
+            <h3>Programs to run</h3>
+            <div id="programs" class="programs"></div>
+            <details>
+                <summary>The exact message each model gets for one step</summary>
+                <pre id="prompt" class="code"></pre>
+            </details>
+        </section>
+
+        <section class="card">
+            <h2>Set up the run</h2>
+            <fieldset>
+                <legend>Models</legend>
+                <div id="models" class="models"></div>
+            </fieldset>
+            <div class="row">
+                <label class="inline">How steps are fed
+                    <select id="mode">
+                        <option value="forced" selected>Teacher forcing: every step starts from the true state</option>
+                        <option value="free">Free running: the model's own answer feeds the next step</option>
+                    </select>
+                </label>
+            </div>
+            <p id="mode-note" class="fine"></p>
+            <p id="estimate" class="fine"></p>
+            <div class="row">
+                <button id="run" class="button primary" type="button">Run the machine</button>
+                <button id="stop" class="button" type="button" hidden>Stop</button>
+                <span id="progress" class="fine"></span>
+            </div>
+        </section>
+
+        <section id="summary" class="card" hidden>
+            <h2>Steps survived</h2>
+            <p class="fine">"Survived" is the number of steps right, cell by cell, from the start of a program until the first slip. "Perfect" is the programs survived to the end, and "Right per step" is the share of all steps asked that were right, slip or no slip. Click a cell to see that run step by step.</p>
+            <div class="scroll"><table id="table"></table></div>
+        </section>
+
+        <section id="detail" class="card" hidden>
+            <h2 id="detail-title">Step by step</h2>
+            <p id="detail-lead" class="fine"></p>
+            <div class="scroll"><table id="steps" class="steps"></table></div>
+        </section>
+    </main>
+
+    <footer class="foot">
+        <p>
+            Every model call runs on <a href="https://pollinations.ai/?ref=badge">Pollinations</a>. This page has no server and keeps no key: you sign in with
+            <a href="https://github.com/pollinations/pollinations/blob/main/BRING_YOUR_OWN_POLLEN.md">your own Pollen</a> and the steps are paid from your balance.
+            Made with pollinations.ai.
+        </p>
+    </footer>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>

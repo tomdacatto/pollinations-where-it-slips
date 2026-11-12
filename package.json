@@ -1,0 +1,8 @@
+{
+    "name": "pollinations-where-it-slips",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "test": "node --test"
+    }
+}
